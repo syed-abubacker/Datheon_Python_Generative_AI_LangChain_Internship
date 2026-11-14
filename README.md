@@ -87,7 +87,7 @@ pytest -q
 
 Gemini is replaced by fakes in the tests. Tasks 2 and 4 exercise a real local ChromaDB with deterministic fake embeddings, and Task 4 also drives the Streamlit UI with Streamlit's `AppTest`. GitHub Actions runs all four suites on every push and pull request to `main`.
 
-## Verification status and limitations
+## Limitations
 
 - The default `gemini-2.5-flash` balances cost and capability. Availability, quotas and free-tier limits vary by account; check the current [Gemini pricing page](https://ai.google.dev/gemini-api/docs/pricing/).
 - RAG answers are constrained by retrieved chunks and a relevance threshold, but LLM output is probabilistic. Review answers for high-stakes uses.
