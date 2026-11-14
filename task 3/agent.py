@@ -72,12 +72,16 @@ def main() -> None:
     load_dotenv(Path(__file__).resolve().parents[1] / ".env")
     print("Tool-using agent ready. Type 'exit' to quit.")
     while True:
-        question = input("You: ").strip()
+        try:
+            question = input("You: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()  # Ctrl-D / Ctrl-C ends the session cleanly instead of printing a traceback.
+            return
         if question.lower() in {"exit", "quit"}:
             return
         try:
             answer, trace = ask_agent(question)
-        except (ValueError, RuntimeError) as error:
+        except Exception as error:  # Quota, network, or API failures should not end the session.
             print(f"Error: {error}")
             continue
         for item in trace:

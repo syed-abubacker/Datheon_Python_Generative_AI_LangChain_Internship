@@ -60,6 +60,7 @@ Example question: `What are the core collaboration hours?` The sample document s
 - Place PDFs and text files in any input folder. The generated `chroma_db/` is local, contains derived embeddings, and is excluded from Git.
 - The 0.35 threshold uses Chroma's default L2-based relevance function, which assumes normalized embeddings. It has not been tuned against live Gemini embeddings, so adjust `minimum_score` in `retrieve_documents` if answers are refused too often or too rarely.
 - `langchain-community` is being sunset upstream and prints a deprecation warning.
+- In the console chat, an API or network error (for example a Gemini quota limit) is printed as `Error: ...` and the session continues. Type `exit` or press Ctrl-C / Ctrl-D to quit.
 
 ## Testing
 
@@ -67,6 +68,6 @@ Example question: `What are the core collaboration hours?` The sample document s
 pytest -q
 ```
 
-The tests need no API key. A deterministic fake embedding replaces Gemini, while the rest runs for real: loading text, Markdown and generated PDF files, chunking with metadata, a real local Chroma index, score filtering, grounded prompt construction with a fake LLM, citations, the no-context path (no model call), re-ingestion without duplicates, and error cases (missing folder, empty folder, missing index, missing key).
+The tests need no API key. A deterministic fake embedding replaces Gemini, while the rest runs for real: loading text, Markdown and generated PDF files, chunking with metadata, a real local Chroma index, score filtering, grounded prompt construction with a fake LLM, citations, the no-context path (no model call), re-ingestion without duplicates, error cases (missing folder, empty folder, missing index, missing key), and the console loop (answers with sources, surviving API errors, quitting with Ctrl-C / Ctrl-D).
 
 Not covered: real Gemini embeddings and answers, which need a live key.

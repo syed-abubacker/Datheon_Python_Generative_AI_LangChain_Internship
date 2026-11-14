@@ -14,12 +14,21 @@ TASK_2_DIRECTORY = Path(__file__).resolve().parents[1] / "task 2"
 if str(TASK_2_DIRECTORY) not in sys.path:
     sys.path.insert(0, str(TASK_2_DIRECTORY))
 
-from rag import NOT_ENOUGH_CONTEXT, create_vector_store, load_documents, retrieve_documents, source_labels, split_documents  # noqa: E402
+from rag import (  # noqa: E402
+    NOT_ENOUGH_CONTEXT,
+    create_vector_store,
+    load_documents,
+    retrieve_documents,
+    source_labels,
+    split_documents,
+)
 
 DEFAULT_INDEX_DIRECTORY = Path(__file__).parent / "chroma_db"
 
 
-def build_index(documents_directory: str | Path, index_directory: str | Path = DEFAULT_INDEX_DIRECTORY) -> tuple[int, int]:
+def build_index(
+    documents_directory: str | Path, index_directory: str | Path = DEFAULT_INDEX_DIRECTORY
+) -> tuple[int, int]:
     """Use Task 2 loading/chunking/embedding code and return document/chunk counts."""
     documents = load_documents(documents_directory)
     chunks = split_documents(documents)

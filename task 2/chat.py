@@ -18,7 +18,11 @@ def main() -> None:
         return
     print("Ask a document question. Type 'exit' to quit.")
     while True:
-        question = input("You: ").strip()
+        try:
+            question = input("You: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()  # Ctrl-D / Ctrl-C ends the session cleanly instead of printing a traceback.
+            return
         if question.lower() in {"exit", "quit"}:
             return
         try:
@@ -26,7 +30,7 @@ def main() -> None:
             print(f"Assistant: {answer.text}")
             if answer.sources:
                 print("Sources: " + "; ".join(answer.sources))
-        except (ValueError, RuntimeError) as error:
+        except Exception as error:  # Quota, network, or API failures should not end the session.
             print(f"Error: {error}")
 
 

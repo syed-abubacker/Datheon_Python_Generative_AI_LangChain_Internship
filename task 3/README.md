@@ -13,7 +13,7 @@ Run a console-based LangChain agent that selects from web search, a safe calcula
 1. `agent.py` builds three LangChain tools (`web_search`, `calculator`, `local_file_reader`) and a Gemini chat model, and creates the agent with `create_agent`.
 2. For each question the agent decides which tools to call, in any order and as many times as needed, and bases its final answer on the tool observations.
 3. Each tool call is recorded in a trace (tool name, input, output). The console prints the trace, with each observation cut to 500 characters, followed by the final answer.
-4. Tool errors come back to the agent as text observations, so a bad input does not end the session.
+4. Tool errors come back to the agent as text observations, so a bad input does not end the session. A failure of the model call itself (for example a quota or overload error) is printed as `Error: ...` and the console keeps running. Type `exit` or press Ctrl-C / Ctrl-D to quit.
 
 ## Safety and trace design
 
@@ -66,6 +66,6 @@ Try: `Read project_notes.txt, calculate (18 * 7) / 3, and summarize the note.` T
 pytest -q
 ```
 
-The tests need no API key and no internet. They cover calculator results and rejected inputs, every file-access restriction above, the search tool with a fake search backend (results, no results, failure), the three LangChain tools and their traces, and the agent wiring (model, tools and final answer) with a fake agent, plus the empty-question and missing-key errors.
+The tests need no API key and no internet. They cover calculator results and rejected inputs, every file-access restriction above, the search tool with a fake search backend (results, no results, failure), the three LangChain tools and their traces, and the agent wiring (model, tools and final answer) with a fake agent, plus the empty-question and missing-key errors and the console loop (trace printing, surviving API errors, quitting with Ctrl-C / Ctrl-D).
 
 Not covered: real tool selection by Gemini, which needs a live key, and real DuckDuckGo results, which need internet access.
