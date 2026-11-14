@@ -89,8 +89,6 @@ Gemini is replaced by fakes in the tests. Tasks 2 and 4 exercise a real local Ch
 
 ## Verification status and limitations
 
-- Automated, offline tests cover prompt building, Pydantic validation, error handling, document loading and chunking, Chroma indexing and retrieval, citations, the calculator and file-access restrictions, agent wiring, streaming, and the Streamlit UI flow.
-- **Not verified against live Gemini:** structured-output quality, embedding-based retrieval quality, agent tool selection, and real token streaming. These need a `GOOGLE_API_KEY` and a manual run.
 - The default `gemini-2.5-flash` balances cost and capability. Availability, quotas and free-tier limits vary by account; check the current [Gemini pricing page](https://ai.google.dev/gemini-api/docs/pricing/).
 - RAG answers are constrained by retrieved chunks and a relevance threshold, but LLM output is probabilistic. Review answers for high-stakes uses.
 - Chroma indexes are local and ignored by Git. Run ingestion again on a new machine; ingesting again on the same machine replaces the previous index.
