@@ -1,0 +1,1 @@
+The internship demo should emphasize safe tool use, clearly labelled observations, and a concise final answer. The permitted local files are examples only.

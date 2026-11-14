@@ -1,0 +1,13 @@
+INVOICE #INV-1042
+From: Northwind Office Supplies
+Bill To: Blue Horizon Studio
+Invoice Date: 2026-01-15
+Due Date: 2026-02-14
+
+Description                 Qty   Unit Price   Amount
+Ergonomic keyboard          2     $45.00       $90.00
+USB-C hub                   1     $60.00       $60.00
+
+Subtotal: $150.00
+Tax: $27.00
+Total: $177.00 USD

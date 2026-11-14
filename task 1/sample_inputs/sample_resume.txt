@@ -1,0 +1,11 @@
+Priya Nair
+priya.nair@example.com | +91 98765 43210
+
+Education
+B.Tech in Computer Science, Example Institute of Technology, 2022
+
+Experience
+Python Intern, Bright Labs, June 2022 - December 2022
+Built data-cleaning scripts and REST API tests.
+
+Skills: Python, SQL, Git, FastAPI, Pandas
