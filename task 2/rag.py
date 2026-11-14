@@ -64,11 +64,20 @@ def make_embeddings() -> GoogleGenerativeAIEmbeddings:
 
 
 def create_vector_store(chunks: list[Document], persist_directory: str | Path = DEFAULT_PERSIST_DIRECTORY) -> Chroma:
-    """Embed chunks and create a persistent, local Chroma collection."""
+    """Embed chunks and (re)create a persistent, local Chroma collection."""
+    embeddings = make_embeddings()
+    directory = str(Path(persist_directory))
+    if Path(directory).exists():
+        # Replace any earlier index; otherwise every re-ingest appends duplicate chunks.
+        Chroma(
+            collection_name="internship_documents",
+            embedding_function=embeddings,
+            persist_directory=directory,
+        ).delete_collection()
     return Chroma.from_documents(
         documents=chunks,
-        embedding=make_embeddings(),
-        persist_directory=str(Path(persist_directory)),
+        embedding=embeddings,
+        persist_directory=directory,
         collection_name="internship_documents",
     )
 

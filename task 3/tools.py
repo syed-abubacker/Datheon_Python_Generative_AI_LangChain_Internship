@@ -36,7 +36,10 @@ def safe_calculate(expression: str) -> str:
         if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and not isinstance(node.value, bool):
             return float(node.value)
         if isinstance(node, ast.BinOp) and type(node.op) in _BINARY_OPERATORS:
-            return _BINARY_OPERATORS[type(node.op)](visit(node.left), visit(node.right))
+            value = _BINARY_OPERATORS[type(node.op)](visit(node.left), visit(node.right))
+            if isinstance(value, complex):  # e.g. (-8) ** 0.5 returns a complex number in Python 3
+                raise ToolInputError("The calculation did not produce a real number.")
+            return value
         if isinstance(node, ast.UnaryOp) and type(node.op) in _UNARY_OPERATORS:
             return _UNARY_OPERATORS[type(node.op)](visit(node.operand))
         raise ToolInputError("Only numbers and +, -, *, /, %, **, and parentheses are allowed.")
@@ -45,6 +48,8 @@ def safe_calculate(expression: str) -> str:
         result = visit(tree)
     except ZeroDivisionError as error:
         raise ToolInputError("Division by zero is not allowed.") from error
+    except OverflowError as error:  # e.g. 10 ** 400 exceeds the float range
+        raise ToolInputError("The result is too large to calculate.") from error
     if abs(result) == float("inf") or result != result:
         raise ToolInputError("The calculation did not produce a finite number.")
     return str(int(result) if result.is_integer() else result)
