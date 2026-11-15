@@ -43,7 +43,7 @@ Copy the root `.env.example` to the root `.env` (one level above this folder) an
 | Variable | Required | Default |
 | --- | --- | --- |
 | `GOOGLE_API_KEY` | yes | none |
-| `GEMINI_MODEL` | no | `gemini-2.5-flash` |
+| `GEMINI_MODEL` | no | `gemini-3.8-flash` |
 
 ## Example usage
 
