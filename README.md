@@ -61,7 +61,7 @@ CI runs on Python **3.13**; 3.12 is expected to work but is not exercised here. 
 | Variable | Required | Default | Used by |
 | --- | --- | --- | --- |
 | `GOOGLE_API_KEY` | yes, for any live Gemini call | none | all tasks |
-| `GEMINI_MODEL` | no | `gemini-2.5-flash` | all tasks |
+| `GEMINI_MODEL` | no | `gemini-3.8-flash` | all tasks |
 | `GEMINI_EMBEDDING_MODEL` | no | `models/gemini-embedding-001` | tasks 2 and 4 |
 
 Each task has its own requirements file, so install them per task (the commands below work in PowerShell and bash).
@@ -89,7 +89,7 @@ Gemini is replaced by fakes in the tests. Tasks 2 and 4 exercise a real local Ch
 
 ## Limitations
 
-- The default `gemini-2.5-flash` balances cost and capability. Availability, quotas and free-tier limits vary by account; check the current [Gemini pricing page](https://ai.google.dev/gemini-api/docs/pricing/).
+- The default `gemini-3.8-flash` balances cost and capability. Availability, quotas and free-tier limits vary by account; check the current [Gemini pricing page](https://ai.google.dev/gemini-api/docs/pricing/).
 - RAG answers are constrained by retrieved chunks and a relevance threshold, but LLM output is probabilistic. Review answers for high-stakes uses.
 - Chroma indexes are local and ignored by Git. Run ingestion again on a new machine; ingesting again on the same machine replaces the previous index.
 - Task 3's DuckDuckGo search needs internet access; every agent tool reports failures instead of crashing.
