@@ -43,7 +43,7 @@ def extract_document(text: str, kind: str, client: genai.Client | None = None) -
         client = genai.Client(api_key=api_key)
     try:
         response = client.models.generate_content(
-            model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
+            model=os.getenv("GEMINI_MODEL", "gemini-3.8-flash"),
             contents=build_prompt(kind, text),
             config=types.GenerateContentConfig(
                 response_mime_type="application/json", response_schema=model_schema, temperature=0
